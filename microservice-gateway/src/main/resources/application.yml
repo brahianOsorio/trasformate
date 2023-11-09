@@ -1,0 +1,27 @@
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: apigateway-micros
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    discovery:
+      locator:
+        enabled: true
+
+    gateway:
+      routes:
+        - id: login
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/usuarioLogin/**
+
+        - id: register
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/usuarioRegister/**
+
+
